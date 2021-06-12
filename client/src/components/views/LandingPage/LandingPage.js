@@ -33,7 +33,7 @@ function LandingPage() {
               src={`http://localhost:5000/${video.thumbnail}`}
             />
             <div
-              className=" duration"
+              className="duration"
               style={{
                 bottom: 0,
                 right: 0,
