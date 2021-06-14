@@ -31,6 +31,35 @@ function Subscribe(props) {
       }
     );
   }, []);
+
+  const onSubscribe = () => {
+    let subscribeVarialbe = {
+      userTo: props.userTo,
+      userFrom: props.userFrom,
+    };
+    // 이미 구독중이라면
+    if (Subscribed) {
+      Axios.post("/api/subscribe/unSubscribe", subscribeVarialbe).then(
+        (response) => {
+          if (response.data.success) {
+          } else {
+            alert("구독 취소하는데에 실패");
+          }
+        }
+      );
+
+      // 아직 구독 중이 아니라면
+    } else {
+      Axios.post("/api/subscribe/subsribe", subscribeVarialbe).then(
+        (response) => {
+          if (response.data.success) {
+          } else {
+            alert("구독 하는데에 실패");
+          }
+        }
+      );
+    }
+  };
   return (
     <div>
       <button
@@ -43,7 +72,7 @@ function Subscribe(props) {
           fontSize: "1rem",
           textTransform: "uppercase",
         }}
-        onClick
+        onClick={onSubscribe}
       >
         {SubscribeNumber} {Subscribed ? "Subscribed" : "Subscribe"}
       </button>
