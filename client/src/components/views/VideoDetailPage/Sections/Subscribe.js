@@ -33,13 +33,13 @@ function Subscribe(props) {
   }, []);
 
   const onSubscribe = () => {
-    let subscribeVarialbe = {
+    let subscribeVariable = {
       userTo: props.userTo,
       userFrom: props.userFrom,
     };
     // 이미 구독중이라면
     if (Subscribed) {
-      Axios.post("/api/subscribe/unSubscribe", subscribeVarialbe).then(
+      Axios.post("/api/subscribe/unSubscribe", subscribeVariable).then(
         (response) => {
           if (response.data.success) {
             setSubscribeNumber(SubscribeNumber - 1);
@@ -52,7 +52,7 @@ function Subscribe(props) {
 
       // 아직 구독 중이 아니라면
     } else {
-      Axios.post("/api/subscribe/subscribe", subscribeVarialbe).then(
+      Axios.post("/api/subscribe/subscribe", subscribeVariable).then(
         (response) => {
           if (response.data.success) {
             setSubscribeNumber(SubscribeNumber + 1);

@@ -7,13 +7,15 @@ import Comment from "./Sections/Comment";
 
 function VideoDetailPage(props) {
   const videoId = props.match.params.videoId;
-  const variable = { videoId: videoId };
+  const videoVariable = {
+    videoId: videoId,
+  };
 
   const [VideoDetail, setVideoDetail] = useState([]);
-  const [Comments, setComments] = useState([]);
+  const [CommentLists, setCommentLists] = useState([]);
 
   useEffect(() => {
-    Axios.post("/api/video/getVideoDetail", variable).then((response) => {
+    Axios.post("/api/video/getVideoDetail", videoVariable).then((response) => {
       if (response.data.success) {
         setVideoDetail(response.data.videoDetail);
       } else {
@@ -21,9 +23,9 @@ function VideoDetailPage(props) {
       }
     });
 
-    Axios.post("/api/comment/getComments", variable).then((response) => {
+    Axios.post("/api/comment/getComments", videoVariable).then((response) => {
       if (response.data.success) {
-        setComments(response.data.comments);
+        setCommentLists(response.data.comments);
       } else {
         alert("코멘트 정보 가져오기 실패");
       }
@@ -31,7 +33,7 @@ function VideoDetailPage(props) {
   }, []);
 
   const refreshFunction = (newComment) => {
-    setComments(Comments.concat(newComment));
+    setCommentLists(CommentLists.concat(newComment));
   };
 
   if (VideoDetail.writer) {
@@ -46,7 +48,7 @@ function VideoDetailPage(props) {
     return (
       <Row gutter={[16, 16]}>
         <Col lg={18} xs={24}>
-          <div style={{ width: "100%", padding: "3rem 4rem " }}>
+          <div style={{ width: "100%", padding: "3rem 4em " }}>
             <video
               style={{ width: "100%" }}
               src={`http://localhost:5000/${VideoDetail.filePath}`}
@@ -65,7 +67,7 @@ function VideoDetailPage(props) {
 
             <Comment
               refreshFunction={refreshFunction}
-              commentLists={Comments}
+              CommentLists={CommentLists}
               postId={videoId}
             />
           </div>
