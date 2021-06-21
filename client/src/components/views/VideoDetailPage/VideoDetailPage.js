@@ -4,6 +4,7 @@ import Axios from "axios";
 import SideVideo from "./Sections/SideVideo";
 import Subscribe from "./Sections/Subscribe";
 import Comment from "./Sections/Comment";
+import LikeDislikes from "./Sections/LikeDislikes";
 
 function VideoDetailPage(props) {
   const videoId = props.match.params.videoId;
@@ -37,14 +38,6 @@ function VideoDetailPage(props) {
   };
 
   if (VideoDetail.writer) {
-    const subscribeButton = VideoDetail.writer._id !==
-      localStorage.getItem("userId") && (
-      <Subscribe
-        userTo={VideoDetail.writer._id}
-        userFrom={localStorage.getItem("userId")}
-      />
-    );
-
     return (
       <Row gutter={[16, 16]}>
         <Col lg={18} xs={24}>
@@ -55,7 +48,19 @@ function VideoDetailPage(props) {
               controls
             ></video>
 
-            <List.Item actions={[subscribeButton]}>
+            <List.Item
+              actions={[
+                <LikeDislikes
+                  video
+                  userId={localStorage.getItem("userId")}
+                  videoId={videoId}
+                />,
+                <Subscribe
+                  userTo={VideoDetail.writer._id}
+                  userFrom={localStorage.getItem("userId")}
+                />,
+              ]}
+            >
               <List.Item.Meta
                 avatar={<Avatar src={VideoDetail.writer.image} />}
                 title={VideoDetail.writer.name}
