@@ -6,7 +6,7 @@ John Ahn님의 [boilerplate-mern-stack](https://github.com/jaewonhimnae/boilerpl
 3. Server Dependencies를 위해 root directroy에서 "npm install" 하기
 4. Front-end Dependencies를 위해 client directory에서 "npm install" 하기
 
-## 사용한 스펙
+## 사용한 스택
 
 React
 Node.js
